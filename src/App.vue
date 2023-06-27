@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import HomeTopBar from './components/Home/HomeTopBar.vue';
+import MainHomeView from './views/MainHomeView.vue';
 </script>
 
 <template>
@@ -19,10 +20,25 @@ import HomeTopBar from './components/Home/HomeTopBar.vue';
   </header>
   
   <RouterView /> -->
-  <HomeTopBar></HomeTopBar>
+  <!-- <HomeTopBar></HomeTopBar> -->
+  <MainHomeView></MainHomeView>
+
 </template>
 
-<style scoped>
+<style lang="less">
+html, body {
+  height: 100%;
+  width: 100%;
+} 
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+  
+</style>
+
+<!-- <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -84,4 +100,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style>
+</style> -->
