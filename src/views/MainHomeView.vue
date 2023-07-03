@@ -3,11 +3,33 @@
     <CommonLoading v-if="state.loading"></CommonLoading>
     <div class="content-view" v-else>
       <HomeTopBar></HomeTopBar>
-      <van-tabs shrink="">
+      <div class="tab-bar">
+        <div
+          class="tab-bar-item"
+          :class="{active:state.selectedItem == item.code}"
+          v-for="item in tabs"
+          :key="item.id"
+          @click="onClickTabItem(event, item)"
+        >
+          {{ item.title }}
+        </div>
+      </div>
+
+      <div class="page-view">
+        <div
+          class="page-view-item"
+          v-for="(item, index) in tabs"
+          :key="item.id"
+          v-show="item.code == state.selectedItem"
+        >
+          <component :is="componentNameForItem(item)"></component>
+        </div>
+      </div>
+      <!-- <van-tabs shrink swipeable class="page-view">
         <van-tab v-for="item in tabs" :key="item.id" :title="item.title">
           <component :is="componentNameForItem(item)"></component>
         </van-tab>
-      </van-tabs>
+      </van-tabs> -->
     </div>
   </div>
 </template>
@@ -22,9 +44,12 @@ import FreeView from '../views/FreeView.vue'
 import TopicView from '../views/TopicView.vue'
 import HistoryView from '../views/HistoryView.vue'
 import ActivityView from '../views/ActivityView.vue'
+import MainFeatureView from '../views/MainFeatureView.vue'
 const state = reactive({
   loading: false,
-  model: null
+  model: null,
+  selectedIndex: 3,
+  selectedItem: 'EXPLORE_TOPIC'
 })
 
 /// 从服务端数据中返回tab数据
@@ -43,9 +68,17 @@ function componentNameForItem(item) {
       return HistoryView
     case 'ACTIVITY':
       return ActivityView
+    case 'MAIN_FEATURED':
+      return MainFeatureView
     default:
       return null
   }
+}
+
+// 点击顶部Tab时的回调
+function onClickTabItem(event, item) {
+  console.log('click item' + item.code)
+  state.selectedItem = item.code
 }
 
 onMounted(async () => {
@@ -85,7 +118,53 @@ onMounted(async () => {
   .content-view {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    // margin-top: 40px;
+
+    // .tab-content {
+    // width: 100%;
+    // height: 100%;
+    // }
+    .tab-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      //   flex-wrap: nowrap;
+      gap: 24px;
+      //   width: 100%;
+      height: 44px;
+      overflow-x: scroll;
+      padding: 0px 8px;
+
+
+      .tab-bar-item {
+        // margin: 0px 24px;
+
+        text-align: center;
+        font-size: 18px;
+        font-family: PingFang SC;
+        font-weight: 600;
+        line-height: 20px;
+
+        white-space: nowrap;
+
+        &.active {
+            color: red;
+        }
+      }
+    }
+    .page-view {
+      height: 100%;
+      width: 100%;
+      background-color: green;
+      .page-view-item {
+        height: 100%;
+        width: 100%;
+        background-color: yellow;
+      }
+    }
   }
 }
 </style>
