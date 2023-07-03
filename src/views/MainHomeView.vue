@@ -6,7 +6,7 @@
       <div class="tab-bar">
         <div
           class="tab-bar-item"
-          :class="{active:state.selectedItem == item.code}"
+          :class="{ active: item.code == state.selectedItem }"
           v-for="item in tabs"
           :key="item.id"
           @click="onClickTabItem(event, item)"
@@ -138,7 +138,6 @@ onMounted(async () => {
       overflow-x: scroll;
       padding: 0px 8px;
 
-
       .tab-bar-item {
         // margin: 0px 24px;
 
@@ -151,7 +150,7 @@ onMounted(async () => {
         white-space: nowrap;
 
         &.active {
-            color: red;
+          color: red;
         }
       }
     }
@@ -162,6 +161,7 @@ onMounted(async () => {
       .page-view-item {
         height: 100%;
         width: 100%;
+        overflow-y: scroll;
         background-color: yellow;
       }
     }
