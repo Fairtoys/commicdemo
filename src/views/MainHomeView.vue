@@ -2,16 +2,18 @@
   <div class="container">
     <CommonLoading v-if="state.loading"></CommonLoading>
     <div class="content-view" v-else>
-      <HomeTopBar></HomeTopBar>
-      <div class="tab-bar">
-        <div
-          class="tab-bar-item"
-          :class="{ active: item.code == state.selectedItem }"
-          v-for="item in tabs"
-          :key="item.id"
-          @click="onClickTabItem(event, item)"
-        >
-          {{ item.title }}
+      <div class="top-container-bar">
+        <HomeTopBar></HomeTopBar>
+        <div class="tab-bar">
+          <div
+            class="tab-bar-item"
+            :class="{ active: item.code == state.selectedItem }"
+            v-for="item in tabs"
+            :key="item.id"
+            @click="onClickTabItem(event, item)"
+          >
+            {{ item.title }}
+          </div>
         </div>
       </div>
 
@@ -127,42 +129,61 @@ onMounted(async () => {
     // width: 100%;
     // height: 100%;
     // }
-    .tab-bar {
+    .top-container-bar {
+      position: absolute;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      //   flex-wrap: nowrap;
-      gap: 24px;
-      //   width: 100%;
-      height: 44px;
-      overflow-x: scroll;
-      padding: 0px 8px;
+      flex-direction: column;
+      width: 100%;
+      background-color: white;
 
-      .tab-bar-item {
-        // margin: 0px 24px;
+      .tab-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        //   flex-wrap: nowrap;
+        gap: 24px;
+        //   width: 100%;
+        height: 44px;
+        overflow-x: scroll;
+        padding: 0px 8px;
 
-        text-align: center;
-        font-size: 18px;
-        font-family: PingFang SC;
-        font-weight: 600;
-        line-height: 20px;
+        .tab-bar-item {
+          // margin: 0px 24px;
 
-        white-space: nowrap;
+          text-align: center;
+          font-size: 18px;
+          font-family: PingFang SC;
+          font-weight: 600;
+          line-height: 20px;
 
-        &.active {
-          color: red;
+          white-space: nowrap;
+
+          &.active {
+            color: red;
+          }
         }
+
+        // 隐藏滚动条
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+
       }
     }
+
     .page-view {
       height: 100%;
       width: 100%;
-      background-color: green;
+    //   background-color: green;
       .page-view-item {
+        padding-top: 84px;
+        // margin-top: 84px;
         height: 100%;
         width: 100%;
         overflow-y: scroll;
-        background-color: yellow;
+        // background-color: yellow;
       }
     }
   }
